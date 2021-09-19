@@ -1,6 +1,5 @@
 package com.greatlearning.lab2.q2;
 
-import java.util.Collections;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -25,7 +24,7 @@ public class Traveler {
 		System.out.println("Enter the amount you want to pay: ");
 		amount = sc.nextInt();
 		currencyCounter = new int[denominations];
-		for (int i = currency.length-1; i >= 0; i--) {
+		for (int i = currency.length - 1; i >= 0; i--) {
 			if (amount >= currency[i]) {
 				currencyCounter[i] = amount / currency[i];
 				amount = amount - currencyCounter[i] * currency[i];
