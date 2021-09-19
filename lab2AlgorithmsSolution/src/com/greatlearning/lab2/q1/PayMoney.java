@@ -39,7 +39,7 @@ public class PayMoney {
 			}
 		}
 		if (status == false) {
-			System.out.println("Target not achieved");
+			System.out.println("Given target is not achieved");
 		}
 	}
 
