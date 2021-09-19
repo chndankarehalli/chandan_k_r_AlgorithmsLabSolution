@@ -8,6 +8,7 @@ public class Traveler {
 	public int denominations, amount;
 	public int[] currency;
 	public int[] currencyCounter;
+	public int[] destArray;
 
 	void insertValues() {
 		System.out.println("Enter the size of currency denominations: ");
@@ -21,20 +22,41 @@ public class Traveler {
 
 	void currencyDenominations() {
 		Arrays.sort(currency);
-		System.out.println("Enter the amount you want to pay: ");
-		amount = sc.nextInt();
-		currencyCounter = new int[denominations];
-		for (int i = currency.length - 1; i >= 0; i--) {
-			if (amount >= currency[i]) {
-				currencyCounter[i] = amount / currency[i];
-				amount = amount - currencyCounter[i] * currency[i];
+		reverse_array(currency, currency.length);
+		while (Arrays.binarySearch(currency, 0) == -1) {
+			System.out.println("Enter the amount you want to pay: ");
+			amount = sc.nextInt();
+			if (amount > 0) {
+				currencyCounter = new int[denominations];
+				for (int i = 0; i < destArray.length; i++) {
+					if (amount >= destArray[i]) {
+						currencyCounter[i] = amount / destArray[i];
+						amount = amount - currencyCounter[i] * destArray[i];
+					}
+				}
+				System.out.println("Your payment approach in order to give min no of notes will be: ");
+				for (int i = 0; i < destArray.length; i++) {
+					if (currencyCounter[i] != 0) {
+						System.out.println(destArray[i] + " : " + currencyCounter[i]);
+					}
+				}
+				break;
+			} else {
+				System.out.println("0 --> Invalid amount to pay");
+				break;
 			}
 		}
-		System.out.println("Your payment approach in order to give min no of notes will be: ");
-		for (int i = 0; i < currency.length; i++) {
-			if (currencyCounter[i] != 0) {
-				System.out.println(currency[i] + " : " + currencyCounter[i]);
-			}
+		if (Arrays.binarySearch(currency, 0) >= 0) {
+			System.out.println("0 --> Invalid denomination found");
+		}
+	}
+
+	void reverse_array(int array[], int n) {
+		destArray = new int[n];
+		int j = n;
+		for (int i = 0; i < n; i++) {
+			destArray[j - 1] = array[i];
+			j = j - 1;
 		}
 	}
 

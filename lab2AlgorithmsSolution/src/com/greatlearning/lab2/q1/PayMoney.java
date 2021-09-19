@@ -3,10 +3,9 @@ package com.greatlearning.lab2.q1;
 import java.util.Scanner;
 
 public class PayMoney {
-	public int sizeOfTransaction, targets, targetValue;
+	public int sizeOfTransaction, targets, targetValue, temp;
 	public int transactionArray[];
-	public boolean status = false;
-
+	
 	Scanner sc = new Scanner(System.in);
 
 	void insertValues() {
@@ -14,8 +13,7 @@ public class PayMoney {
 		sizeOfTransaction = sc.nextInt();
 		transactionArray = new int[sizeOfTransaction];
 		for (int i = 0; i < transactionArray.length; i++) {
-			int c = i + 1;
-			System.out.println("Enter the values of transaction " + c + ":");
+			System.out.println("Enter the values of transaction " + (i + 1) + ":");
 			transactionArray[i] = sc.nextInt();
 		}
 	}
@@ -25,22 +23,35 @@ public class PayMoney {
 		targets = sc.nextInt();
 		for (int i = 1; i <= targets; i++) {
 			System.out.println("Enter the value of target " + i + " :");
+			temp = 0;
 			targetValue = sc.nextInt();
-			int temp = 0;
-			for (int j = 0; j < transactionArray.length; j++) {
-				if (targetValue <= transactionArray[j] + temp) {
-					int d = j + 1;
-					status = true;
-					System.out.println("Target achieved after " + d + " transactions");
-					break;
-				} else {
-					temp = temp + transactionArray[j];
+			while (targetValue > 0) {
+				for (int j = 0; j < transactionArray.length; j++) {
+					if (targetValue <= transactionArray[j] + temp) {
+						System.out.println("Target achieved after " + (j + 1) + " transactions");
+						break;
+					} else {
+						temp = temp + transactionArray[j];
+					}
 				}
+				break;
+			}
+			if (targetValue <= 0) {
+				System.out.println("Invalid target value");
+				break;
+			}
+			if (sumarry(transactionArray) < targetValue) {
+				System.out.println("Given target is not achieved");
 			}
 		}
-		if (status == false) {
-			System.out.println("Given target is not achieved");
+	}
+
+	int sumarry(int[] array) {
+		int sum = 0;
+		for (int i = 0; i < array.length; i++) {
+			sum += array[i];
 		}
+		return sum;
 	}
 
 	public static void main(String[] args) {
